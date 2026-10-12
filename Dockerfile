@@ -10,9 +10,8 @@ RUN apt-get update \
     && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
     && rm /tmp/node.tar.xz \
     && npm install -g supergateway@4.2.0-rc.1 \
+    && test -x /usr/local/bin/supergateway \
     && test -f /usr/local/lib/node_modules/supergateway/dist/index.js \
-    && printf '%s\n' '#!/bin/sh' 'exec node /usr/local/lib/node_modules/supergateway/dist/index.js "$@"' > /usr/local/bin/supergateway \
-    && chmod 755 /usr/local/bin/supergateway \
     && rm -rf /root/.npm \
     && apt-get purge -y xz-utils \
     && apt-get autoremove -y \
