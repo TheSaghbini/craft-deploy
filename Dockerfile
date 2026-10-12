@@ -9,11 +9,24 @@ RUN apt-get update \
     && curl -fsSL -o /tmp/node.tar.xz https://nodejs.org/dist/v22.23.3/node-v22.23.3-linux-x64.tar.xz \
     && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
     && rm /tmp/node.tar.xz \
-    && npm install -g supergateway@4.1.0 \
+    && npm install -g supergateway@4.2.0-rc.1 \
+    && test -f /usr/local/lib/node_modules/supergateway/dist/index.js \
+    && printf '%s\n' '#!/bin/sh' 'exec node /usr/local/lib/node_modules/supergateway/dist/index.js "$@"' > /usr/local/bin/supergateway \
+    && chmod 755 /usr/local/bin/supergateway \
     && rm -rf /root/.npm \
     && apt-get purge -y xz-utils \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
+# These files change when GitHub publishes a release, so the download below
+# follows the latest tag instead of staying on a pinned version.
+ADD https://api.github.com/repos/storytold/photocraft/releases/latest /tmp/rel/photocraft.json
+ADD https://api.github.com/repos/storytold/lightcraft/releases/latest /tmp/rel/lightcraft.json
+ADD https://api.github.com/repos/storytold/filmcraft/releases/latest /tmp/rel/filmcraft.json
+ADD https://api.github.com/repos/storytold/effectcraft/releases/latest /tmp/rel/effectcraft.json
+ADD https://api.github.com/repos/storytold/vectorcraft/releases/latest /tmp/rel/vectorcraft.json
+ADD https://api.github.com/repos/storytold/designcraft/releases/latest /tmp/rel/designcraft.json
+ADD https://api.github.com/repos/storytold/pdfcraft/releases/latest /tmp/rel/pdfcraft.json
 
 ARG RAILWAY_SERVICE_NAME
 
@@ -21,15 +34,18 @@ USER root
 RUN set -eu; \
     name=$(printf '%s' "${RAILWAY_SERVICE_NAME:-}" | tr '[:upper:]' '[:lower:]'); \
     case "$name" in \
-      photocraft) version=0.7.0; mcp="photocraft-cli mcp --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
-      lightcraft) version=0.6.0; mcp="lightcraft-cli mcp" ;; \
-      filmcraft) version=0.6.0; mcp="filmcraft-cli mcp --demo" ;; \
-      effectcraft) version=0.8.0; mcp="effectcraft-cli mcp" ;; \
-      vectorcraft) version=0.10.0; mcp="vectorcraft-cli mcp --headless --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
-      designcraft) version=0.6.0; mcp="designcraft-cli mcp" ;; \
-      pdfcraft) version=0.7.1; mcp="pdfcraft-cli mcp --root /var/workspace" ;; \
+      photocraft) mcp="photocraft-cli mcp --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
+      lightcraft) mcp="lightcraft-cli mcp" ;; \
+      filmcraft) mcp="filmcraft-cli mcp --demo" ;; \
+      effectcraft) mcp="effectcraft-cli mcp" ;; \
+      vectorcraft) mcp="vectorcraft-cli mcp --headless --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
+      designcraft) mcp="designcraft-cli mcp" ;; \
+      pdfcraft) mcp="pdfcraft-cli mcp --root /var/workspace" ;; \
       *) echo "unknown service: ${RAILWAY_SERVICE_NAME:-<empty>}" >&2; exit 1 ;; \
     esac; \
+    tag=$(grep -o '"tag_name": *"[^"]*"' "/tmp/rel/${name}.json" | head -n 1 | sed 's/.*"\(v[^"]*\)".*/\1/'); \
+    version=${tag#v}; \
+    test -n "$version"; \
     echo "building ${name} ${version}"; \
     zip="${name}-web-${version}.zip"; \
     web="https://github.com/storytold/${name}/releases/download/v${version}/${zip}"; \

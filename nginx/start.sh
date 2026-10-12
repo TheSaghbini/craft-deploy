@@ -27,4 +27,5 @@ exec runuser -u nginx -- env \
   --host 127.0.0.1 \
   --streamableHttpPath /mcp \
   --healthEndpoint /gateway-health \
+  --apiKey "$SUPERGATEWAY_API_KEY" \
   --logLevel info

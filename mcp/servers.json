@@ -1,0 +1,57 @@
+{
+  "port": 8080,
+  "host": "0.0.0.0",
+  "healthEndpoint": "/healthz",
+  "logLevel": "info",
+  "mcpServers": {
+    "suite": {
+      "outputTransport": "streamableHttp",
+      "stateful": true,
+      "apiKey": "${SUPERGATEWAY_API_KEY}",
+      "mcpServers": {
+        "photocraft": {
+          "url": "${PHOTOCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "photocraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "lightcraft": {
+          "url": "${LIGHTCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "lightcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "filmcraft": {
+          "url": "${FILMCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "filmcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "effectcraft": {
+          "url": "${EFFECTCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "effectcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "vectorcraft": {
+          "url": "${VECTORCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "vectorcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "designcraft": {
+          "url": "${DESIGNCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "designcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "pdfcraft": {
+          "url": "${PDFCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "pdfcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        }
+      }
+    }
+  }
+}
