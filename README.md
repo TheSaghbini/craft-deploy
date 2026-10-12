@@ -1,6 +1,6 @@
 # craft-deploy
 
-Imagens nginx que publicam a versão web dos apps da [Storytold](https://github.com/storytold). Cada pasta baixa o zip do release correspondente e serve os arquivos na porta 8080.
+Imagens nginx que publicam a versão web dos apps da [Storytold](https://github.com/storytold). O Dockerfile da raiz baixa o zip web e o CLI Linux do release correspondente. O editor fica na porta 8080. O MCP do CLI, que só fala por stdin/stdout, aparece em `/mcp` no mesmo domínio. A variável `SUPERGATEWAY_API_KEY` é obrigatória; o cliente envia `Authorization: Bearer` ou `X-API-Key`.
 
 O código dos apps é da Storytold, sob MIT e Apache-2.0. Este repositório só empacota esses zips.
 
