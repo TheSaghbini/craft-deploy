@@ -2,6 +2,8 @@
 
 Railway images for the seven [Storytold](https://github.com/storytold) creative apps, plus one [supergateway](https://github.com/supercorp-ai/supergateway) service that exposes all of them as a single MCP server.
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/craft-web-suite-mcp?referralCode=Kqm1It&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
 The apps are open source (MIT or Apache-2.0). This repository does not build them. Each image downloads the latest GitHub Release and serves it.
 
 | App | What it is | Repository |
