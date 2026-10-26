@@ -50,6 +50,42 @@
           "type": "http",
           "toolPrefix": "pdfcraft_",
           "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "wordcraft": {
+          "url": "${WORDCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "wordcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "gridcraft": {
+          "url": "${GRIDCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "gridcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "deckcraft": {
+          "url": "${DECKCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "deckcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "cadcraft": {
+          "url": "${CADCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "cadcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "soundcraft": {
+          "url": "${SOUNDCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "soundcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
+        },
+        "figcraft": {
+          "url": "${FIGCRAFT_MCP}",
+          "type": "http",
+          "toolPrefix": "figcraft_",
+          "oauth2Bearer": "${SUPERGATEWAY_API_KEY}"
         }
       }
     }

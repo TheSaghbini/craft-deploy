@@ -1,6 +1,6 @@
 # craft-deploy
 
-Railway images for the seven [Storytold](https://github.com/storytold) creative apps, plus one [supergateway](https://github.com/supercorp-ai/supergateway) service that exposes all of them as a single MCP server.
+Railway images for the Storytold Craft apps, plus one [supergateway](https://github.com/supercorp-ai/supergateway) service that exposes all of them as a single MCP server.
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/craft-web-suite-mcp?referralCode=Kqm1It&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
@@ -15,6 +15,12 @@ The apps are open source (MIT or Apache-2.0). This repository does not build the
 | VectorCraft | Vector illustration. | https://github.com/storytold/vectorcraft |
 | DesignCraft | Page layout and publishing. | https://github.com/storytold/designcraft |
 | PdfCraft | PDF workbench: read, organize, combine, split, and secure. | https://github.com/storytold/pdfcraft |
+| WordCraft | Word processor. Reads and writes .docx. | https://github.com/storytold/wordcraft |
+| GridCraft | Spreadsheet. Reads and writes .xlsx. | https://github.com/storytold/gridcraft |
+| DeckCraft | Presentations. Reads and writes .pptx. | https://github.com/storytold/deckcraft |
+| CADCraft | Technical drawing. | https://github.com/storytold/cadcraft |
+| SoundCraft | Audio editing. | https://github.com/storytold/soundcraft |
+| FigCraft | Interface design. | https://github.com/storytold/figcraft |
 
 ## What a deploy runs
 
@@ -50,6 +56,12 @@ EFFECTCRAFT_MCP=http://${{EffectCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
 VECTORCRAFT_MCP=http://${{VectorCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
 DESIGNCRAFT_MCP=http://${{DesignCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
 PDFCRAFT_MCP=http://${{PdfCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+WORDCRAFT_MCP=http://${{WordCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+GRIDCRAFT_MCP=http://${{GridCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+DECKCRAFT_MCP=http://${{DeckCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+CADCRAFT_MCP=http://${{CADCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+SOUNDCRAFT_MCP=http://${{SoundCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
+FIGCRAFT_MCP=http://${{FigCraft.RAILWAY_PRIVATE_DOMAIN}}:8080/mcp
 SUPERGATEWAY_API_KEY=<secret>
 ```
 
@@ -66,7 +78,7 @@ Dockerfile          one image per app, selected by RAILWAY_SERVICE_NAME
 nginx/nginx.conf    editor, /healthz, and the /mcp proxy
 nginx/start.sh      nginx plus supergateway
 mcp/Dockerfile      the combined MCP service
-mcp/servers.json    the seven upstream MCP endpoints
+mcp/servers.json    one upstream MCP endpoint per app
 icons/              marketplace card art
 ```
 

@@ -26,6 +26,12 @@ ADD https://api.github.com/repos/storytold/effectcraft/releases/latest /tmp/rel/
 ADD https://api.github.com/repos/storytold/vectorcraft/releases/latest /tmp/rel/vectorcraft.json
 ADD https://api.github.com/repos/storytold/designcraft/releases/latest /tmp/rel/designcraft.json
 ADD https://api.github.com/repos/storytold/pdfcraft/releases/latest /tmp/rel/pdfcraft.json
+ADD https://api.github.com/repos/storytold/wordcraft/releases/latest /tmp/rel/wordcraft.json
+ADD https://api.github.com/repos/storytold/gridcraft/releases/latest /tmp/rel/gridcraft.json
+ADD https://api.github.com/repos/storytold/deckcraft/releases/latest /tmp/rel/deckcraft.json
+ADD https://api.github.com/repos/storytold/cadcraft/releases/latest /tmp/rel/cadcraft.json
+ADD https://api.github.com/repos/storytold/soundcraft/releases/latest /tmp/rel/soundcraft.json
+ADD https://api.github.com/repos/storytold/figcraft/releases/latest /tmp/rel/figcraft.json
 
 ARG RAILWAY_SERVICE_NAME
 
@@ -40,6 +46,12 @@ RUN set -eu; \
       vectorcraft) mcp="vectorcraft-cli mcp --headless --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
       designcraft) mcp="designcraft-cli mcp" ;; \
       pdfcraft) mcp="pdfcraft-cli mcp --root /var/workspace" ;; \
+      wordcraft) mcp="wordcraft-cli mcp --author AgenticOS --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
+      gridcraft) mcp="gridcraft-cli mcp" ;; \
+      deckcraft) mcp="deckcraft-cli mcp --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
+      cadcraft) mcp="cadcraft-cli mcp" ;; \
+      soundcraft) mcp="soundcraft-cli mcp --demo --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
+      figcraft) mcp="figcraft-cli mcp --automation-read-root /var/workspace --automation-write-root /var/workspace" ;; \
       *) echo "unknown service: ${RAILWAY_SERVICE_NAME:-<empty>}" >&2; exit 1 ;; \
     esac; \
     tag=$(grep -o '"tag_name": *"[^"]*"' "/tmp/rel/${name}.json" | head -n 1 | sed 's/.*"\(v[^"]*\)".*/\1/'); \
@@ -58,7 +70,7 @@ RUN set -eu; \
     mkdir -p /tmp/cli; \
     curl -fsSL --retry 3 -A Photocraft-dev -o /tmp/cli.tar.gz "$cli"; \
     tar -xzf /tmp/cli.tar.gz -C /tmp/cli; \
-    found=$(find /tmp/cli -type f -name "${name}-cli" | head -n 1); \
+    found=$(find /tmp/cli -type f -path "*/bin/${name}-cli" | head -n 1); \
     test -n "$found"; \
     install -m 755 "$found" "/usr/local/bin/${name}-cli"; \
     "/usr/local/bin/${name}-cli" --version; \
