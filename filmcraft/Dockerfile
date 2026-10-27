@@ -18,6 +18,8 @@ RUN set -eu; \
     apk del curl unzip
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/craft-http.conf /etc/nginx/craft-http.conf
+COPY nginx/craft-server.conf /etc/nginx/craft-server.conf
 
 USER nginx
 EXPOSE 8080

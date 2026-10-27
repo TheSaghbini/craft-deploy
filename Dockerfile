@@ -78,6 +78,8 @@ RUN set -eu; \
     rm -rf /tmp/web /tmp/web.zip /tmp/cli /tmp/cli.tar.gz
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/craft-http.conf /etc/nginx/craft-http.conf
+COPY nginx/craft-server.conf /etc/nginx/craft-server.conf
 COPY nginx/start.sh /usr/local/bin/start-craft
 RUN chmod 755 /usr/local/bin/start-craft
 
